@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>Получили цитату!</title>
@@ -21,15 +22,16 @@
         }
     </script>
 </head>
+
 <body>
     {% if quote %}
     <section class="layout" align="center">
-      <div class="quote-space">
+        <div class="quote-space">
             <h1 class="quoteSpace">{{ quote.text }}</h1>
             <h2 class="quoteSpace">{{ quote.source }}</h2>
             <div>Количество просмотров: {{ quote.views }}</div>
-      </div>
-      <div class="interactions">
+        </div>
+        <div class="interactions">
             <div class="reaction-button">
                 Лайки: {{ quote.likes }}
                 <form method="post" action="{% url 'polls:like' quote.id %}">
@@ -44,54 +46,44 @@
                     <button class="button" type="submit">(•v•)</button>
                 </form>
             </div>
-      </div>
-      <div class="footer">
+        </div>
+        <div class="footer">
             <div class="weight-container">
                 <div class="weight-display">
                     Актуальность: <span id="weight-{{ quote.id }}">{{ quote.weight }}</span>
                 </div>
-                <form
-                    method="post"
-                    action="{% url 'polls:update_quote_weight' quote.id %}"
-                    class="weight-form"
-                    id="weight-form-{{ quote.id }}"
-                    style="display: none;"
-                >
+                <form method="post" action="{% url 'polls:update_quote_weight' quote.id %}" class="weight-form"
+                    id="weight-form-{{ quote.id }}" style="display: none;">
                     {% csrf_token %}
-                    <input
-                        type="number"
-                        name="new_weight"
-                        value="{{ quote.weight }}"
-                        min="0"
-                        step="1"
-                        id="weight-input-{{ quote.id }}"
-                    >
+                    <input type="number" name="new_weight" value="{{ quote.weight }}" min="0" step="1"
+                        id="weight-input-{{ quote.id }}">
                     <button type="submit">✓</button>
                 </form>
                 <button class="button" onclick="enableForm({{ quote.id }})">Обновить!</button>
             </div>
-          <form method="get" action="{% url 'polls:change_quote' %}">
-              <button class="button" type="submit">🔄</button>
-          </form>
-          <form method="get" action="{% url 'polls:top_quotes' %}">
-              <button class="button" type="submit">Топ-10</button>
-          </form>
-          <form method="get" action="{% url 'polls:add_quote' %}">
-              <button class="button" type="submit">+</button>
-          </form>
-      </div>
+            <form method="get" action="{% url 'polls:change_quote' %}">
+                <button class="button" type="submit">🔄</button>
+            </form>
+            <form method="get" action="{% url 'polls:top_quotes' %}">
+                <button class="button" type="submit">Топ-10</button>
+            </form>
+            <form method="get" action="{% url 'polls:add_quote' %}">
+                <button class="button" type="submit">+</button>
+            </form>
+        </div>
     </section>
     {% else %}
-      <section class="layout" align="center">
-      <div class="quote-space">
+    <section class="layout" align="center">
+        <div class="quote-space">
             <h1>Цитата не найдена!</h1>
-      </div>
-      <div class="footer">
-          <form method="get" action="{% url 'polls:add_quote' %}">
-              <button class="button" type="submit">+</button>
-          </form>
-      </div>
+        </div>
+        <div class="footer">
+            <form method="get" action="{% url 'polls:add_quote' %}">
+                <button class="button" type="submit">+</button>
+            </form>
+        </div>
     </section>
     {% endif %}
 </body>
+
 </html>
