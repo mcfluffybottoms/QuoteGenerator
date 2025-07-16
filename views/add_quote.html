@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Добавь цитату!</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <meta charset="UTF-8">
+  <title>Добавь цитату!</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+
 <body>
   <h1 class="title-text">ДОБАВЬ ЦИТАТУ!</h1>
   <section class="layout" align="center">
-      <div class="quote-space">
-        <hr class="add-form-container">
-          <form action="{% url 'polls:add_quote' %}" method="post" class="add-form">
-              {% csrf_token %}
-              <input type="hidden" name="action" value="add">
-              <label>Цитата:
-                  <input type="text" name="text" required>
-              </label><br>
-              <label>Источник:
-                  <input type="text" name="source"  maxlength="250" required>
-              </label><br>
-              <label>Актуальность:
-                  <input type="number" step="1" min="0" name="weight" required>
-              </label><br>
-              <button class="form-button"  type="submit">Добавить!</button>
-          </form>
-      </div>
-    </section>
+    <div class="quote-space">
+      <hr class="add-form-container">
+      <form action="{% url 'polls:add_quote' %}" method="post" class="add-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add">
+        <label>Цитата:
+          <input type="text" name="text" required>
+        </label><br>
+        <label>Источник:
+          <input type="text" name="source" maxlength="250" required>
+        </label><br>
+        <label>Актуальность:
+          <input type="number" step="1" min="0" name="weight" required>
+        </label><br>
+        <button class="form-button" type="submit">Добавить!</button>
+      </form>
+    </div>
+  </section>
   {% if messages %}
   <div class="messages">
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
   </div>
   {% endif %}
 </body>
+
 </html>

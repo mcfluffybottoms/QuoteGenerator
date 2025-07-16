@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>Давай получим цитату!</title>
@@ -7,15 +8,16 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <section class="layout" align="center">
-  <h1 class="title-text">ГЕНЕРАТОР ЦИТАТ!</h1>
-  <form method="get" action="{% url 'polls:change_quote' %}">
-      <button class="button" type="submit">🔄</button>
-  </form>
-  <form method="get" action="{% url 'polls:top_quotes' %}">
-      <button class="button" type="submit">Топ-10</button>
-  </form>
-  <form method="get" action="{% url 'polls:add_quote' %}">
-      <button class="button" type="submit">+</button>
-  </form>
+    <h1 class="title-text">ГЕНЕРАТОР ЦИТАТ!</h1>
+    <form method="get" action="{% url 'polls:change_quote' %}">
+        <button class="button" type="submit">🔄</button>
+    </form>
+    <form method="get" action="{% url 'polls:top_quotes' %}">
+        <button class="button" type="submit">Топ-10</button>
+    </form>
+    <form method="get" action="{% url 'polls:add_quote' %}">
+        <button class="button" type="submit">+</button>
+    </form>
 </section>
+
 </html>

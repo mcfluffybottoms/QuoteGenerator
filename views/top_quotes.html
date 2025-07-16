@@ -1,51 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>Топ 10 цитат!</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <script>
-    document.querySelectorAll('.sortable').forEach(header => {
-        header.addEventListener('click', () => {
-            const sortField = header.dataset.sort;
-            const currentUrl = new URL(window.location.href);
-            const currentSort = currentUrl.searchParams.get('sort');
-            const currentOrder = currentUrl.searchParams.get('order');
-
-            // Toggle between ascending and descending
-            const newOrder = (currentSort === sortField && currentOrder === 'asc') ? 'desc' : 'asc';
-
-            // Update URL parameters
-            currentUrl.searchParams.set('sort', sortField);
-            currentUrl.searchParams.set('order', newOrder);
-
-            // Reload page with new sorting
-            window.location.href = currentUrl.toString();
-        });
-    });
-    </script>
 </head>
+
 <body>
-<h1 class="title-text">Топ 10 цитат!</h1>
-{% if top_quotes %}
+    <h1 class="title-text">Топ 10 цитат!</h1>
+    {% if top_quotes %}
     <form method="get" action="{% url 'polls:top_quotes' %}">
         <label>Сортировать по:
-        <select class="form-button" name="order" required>
-            <option value="likes">лайкам</option>
-            <option value="dislikes">дизлайкам</option>
-            <option value="views">просмотрам</option>
-            <option value="weight">актуальности</option>
-            <option value="text">цитате</option>
-            <option value="source">источнику</option>
-        </select>
+            <select class="form-button" name="order" required>
+                <option value="likes">лайкам</option>
+                <option value="dislikes">дизлайкам</option>
+                <option value="views">просмотрам</option>
+                <option value="weight">актуальности</option>
+                <option value="text">цитате</option>
+                <option value="source">источнику</option>
+            </select>
         </label><br>
         <input class="form-button" type="number" name="number_max" step="1" min="0" placeholder="10">
         <label>
-        <select class="form-button" name="desc" required>
-            <option value="true">По убыванию</option>
-            <option value="false">По возрастанию</option>
-        </select>
+            <select class="form-button" name="desc" required>
+                <option value="true">По убыванию</option>
+                <option value="false">По возрастанию</option>
+            </select>
         </label><br>
         <button class="form-button" type="submit">Искать</button>
     </form>
@@ -60,36 +42,37 @@
             <th></th>
         </tr>
         {% for quote in top_quotes %}
-            <tr>
-                <td>{{quote.text}}</td>
-                <td>{{quote.source}}</td>
-                <td>{{quote.likes}}</td>
-                <td>{{quote.dislikes}}</td>
-                <td>{{quote.views}}</td>
-                <td>{{quote.weight}}</td>
-                <td>
-                    <form method="post" action="{% url 'polls:get_quote_by_id_incr' quote.id %}">
-                        {% csrf_token %}
-                        <button class="button" type="submit">Открыть</button>
-                    </form>
-                </td>
-            </tr>
+        <tr>
+            <td>{{quote.text}}</td>
+            <td>{{quote.source}}</td>
+            <td>{{quote.likes}}</td>
+            <td>{{quote.dislikes}}</td>
+            <td>{{quote.views}}</td>
+            <td>{{quote.weight}}</td>
+            <td>
+                <form method="post" action="{% url 'polls:get_quote_by_id_incr' quote.id %}">
+                    {% csrf_token %}
+                    <button class="button" type="submit">Открыть</button>
+                </form>
+            </td>
+        </tr>
         {% endfor %}
     </table>
     <form method="get" action="{% url 'polls:index' %}">
-      <button class="button" type="submit">На главную!</button>
+        <button class="button" type="submit">На главную!</button>
     </form>
-{% else %}
-  <section class="layout" align="center">
-  <div class="quote-space">
-        <p>Цитат нет!</p>
-  </div>
-  <div class="footer">
-      <form method="get" action="{% url 'polls:add_quote' %}">
-          <button class="button" type="submit">+</button>
-      </form>
-  </div>
-</section>
-{% endif %}
+    {% else %}
+    <section class="layout" align="center">
+        <div class="quote-space">
+            <p>Цитат нет!</p>
+        </div>
+        <div class="footer">
+            <form method="get" action="{% url 'polls:add_quote' %}">
+                <button class="button" type="submit">+</button>
+            </form>
+        </div>
+    </section>
+    {% endif %}
 </body>
+
 </html>
